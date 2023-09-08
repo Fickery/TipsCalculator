@@ -1,12 +1,31 @@
 export default function Right() {
   return (
     <div className="right">
-      <label htmlFor="bill">Tip Amount</label>
-      <input type="number" placeholder="$" value="Bill" />
+      <div class="main">
+        <div class="leftmain-cont">
+          <div class="left-text">
+            <p>Tip Amount</p>
+            <p>/ person</p>
+          </div>
 
-      <label htmlFor="bill">Total</label>
-      <input type="number" placeholder="$" value="Bill" />
-      <button>Reset</button>
+          <div class="right-input">
+            <input className="right-inbtn" type="text" placeholder="$0.00" />
+          </div>
+        </div>
+
+        <div class="rightmain-cont">
+          <div class="left-text">
+            <p>Total</p>
+            <p>/ person</p>
+          </div>
+
+          <div class="right-input">
+            <input className="right-inbtn" type="text" placeholder="$0.00" />
+          </div>
+        </div>
+      </div>
+
+      <button className="rightBtn">Reset</button>
     </div>
   );
 }
