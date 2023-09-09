@@ -7,7 +7,7 @@ function App() {
   const [count, setCount] = useState(0);
 
   return (
-    <div className="mainCont">
+    <div id="content" className="mainCont">
       <Left />
       <Right />
     </div>

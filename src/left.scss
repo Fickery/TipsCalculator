@@ -1,0 +1,9 @@
+.left {
+  display: flex;
+  flex-direction: column;
+  grid-template-columns: 1fr; /* Change grid-template-columns */
+  gap: 50px;
+  width: 100%; /* Adjust width */
+  padding: 0;
+  text-align: left;
+}
