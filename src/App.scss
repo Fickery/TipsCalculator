@@ -2,11 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ... your existing code ... */
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+}
+
+.input-left {
+  font-size: 18px;
+  padding: 8px;
+  border-radius: 5px;
+  background-color: rgb(219, 227, 234);
 }
 
 .mainCont {
