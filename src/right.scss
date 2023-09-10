@@ -18,6 +18,19 @@
   }
 
   &__text {
+<<<<<<< HEAD
+=======
+    width: 100%;
+    font-size: 3vw;
+    font-weight: 700;
+
+    @media (min-width: 650px) {
+      font-size: 1.5vw;
+    }
+  }
+
+  &__label {
+>>>>>>> ba53136728b80820a9d11a18589afc289f57b7b2
     width: 100%;
   }
 
@@ -41,6 +54,7 @@
     font-size: 2vw;
     color: $dis-clr;
 
+<<<<<<< HEAD
     @media (min-width: 1200px) {
       font-size: 0.8vw;
     }
@@ -51,6 +65,10 @@
 
     @media (max-width: 700px) {
       font-size: 3vw;
+=======
+    @media (min-width: 650px) {
+      font-size: 1vw;
+>>>>>>> ba53136728b80820a9d11a18589afc289f57b7b2
     }
   }
 
@@ -65,6 +83,7 @@
     background: none;
     color: $active-bg;
 
+<<<<<<< HEAD
     @media (min-width: 1200px) {
       font-size: 2vw;
     }
@@ -76,6 +95,11 @@
     @media (max-width: 700px) {
       font-size: 5vw;
     }
+=======
+    @media (min-width: 650px) {
+      font-size: 2vw;
+    }
+>>>>>>> ba53136728b80820a9d11a18589afc289f57b7b2
   }
 
   &__btn {

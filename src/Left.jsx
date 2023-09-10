@@ -13,17 +13,10 @@ export default function Left(props) {
     console.log("Input value:", event.target.value);
   };
 
-  const handlePeopleChange = (event) => {
-    setInputPeople(event.target.value);
-    console.log("Input people:", event.target.value);
+  const handlePeopleChange = (e) => {
+    const value = e.target.value.replace(/\D/g, "");
+    setInputPeople(value <= 999 ? value : "999");
   };
-
-  const handleTipClick = (percentage) => {
-    setSelectedTip(percentage / 100);
-    console.log(percentage / 100);
-  };
-
-  const isBillEmpty = inputValue === "";
 
   return (
     <div className="left">
@@ -32,8 +25,7 @@ export default function Left(props) {
       </p>
       <div className="left__group">
         <label htmlFor="left__text">Bill</label>
-        <NumericFormat
-          placeholder="$"
+        <input
           className="left__input"
           value={inputValue}
           onChange={handleBillChange}
@@ -44,33 +36,37 @@ export default function Left(props) {
       </div>
 
       <div className="left__group">
-        <label htmlFor="left__text">Select Tip %</label>
+        <label className="left__text" htmlFor="left__text">
+          Select Tip %
+        </label>
         <ul className="tip">
-          {[5, 10, 15, 25, 50].map((percentage) => (
-            <li className="tip__item" key={percentage}>
-              <button
-                className={`tip__btn ${isBillEmpty ? "disabled" : ""}`}
-                disabled={isBillEmpty}
-                onClick={() => handleTipClick(percentage)}>
-                {percentage}%
-              </button>
-            </li>
-          ))}
           <li className="tip__item">
-            <input
-              className="tip__btn"
-              onClick={() => handleTipClick(selectedTip)}
-              value={"custom"}
-            />
+            <button className="tip__btn">5%</button>
+          </li>
+          <li className="tip__item">
+            <button className="tip__btn">10%</button>
+          </li>
+          <li className="tip__item">
+            <button className="tip__btn">15%</button>
+          </li>
+          <li className="tip__item">
+            <button className="tip__btn">25%</button>
+          </li>
+          <li className="tip__item">
+            <button className="tip__btn">50%</button>
+          </li>
+          <li className="tip__item">
+            <button className="tip__btn">custom</button>
           </li>
         </ul>
       </div>
 
       <div className="left__group">
         <label htmlFor="left__text">Number of People</label>
-        <NumericFormat
-          placeholder="People"
+        <input
           className="left__input"
+          type="text"
+          type="text"
           value={inputPeople}
           onChange={handlePeopleChange}
           allowLeadingZeros={false}
