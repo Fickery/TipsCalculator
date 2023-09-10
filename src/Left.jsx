@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import "./left.scss";
 
 export default function Left() {
@@ -16,10 +16,16 @@ export default function Left() {
     setInputPeople(value <= 999 ? value : "999");
   };
 
+  const isBillEmpty = inputValue === "";
+
+  const giveTipAmount = setInputValue * 0.05;
+
   return (
     <div className="left">
       <div className="left__group">
-        <label htmlFor="left__text">Bill</label>
+        <label className="left__text" htmlFor="left__text">
+          Bill
+        </label>
         <input
           className="left__input"
           type="text"
@@ -30,34 +36,61 @@ export default function Left() {
       </div>
 
       <div className="left__group">
-        <label htmlFor="left__text">Select Tip %</label>
+        <label className="left__text" htmlFor="left__text">
+          Select Tip %
+        </label>
         <ul className="tip">
           <li className="tip__item">
-            <button className="tip__btn">5%</button>
+            <button
+              className={`tip__btn ${isBillEmpty ? "disabled" : ""}`}
+              disabled={isBillEmpty}>
+              5%
+            </button>
           </li>
           <li className="tip__item">
-            <button className="tip__btn">10%</button>
+            <button
+              className={`tip__btn ${isBillEmpty ? "disabled" : ""}`}
+              disabled={isBillEmpty}>
+              10%
+            </button>
           </li>
           <li className="tip__item">
-            <button className="tip__btn">15%</button>
+            <button
+              className={`tip__btn ${isBillEmpty ? "disabled" : ""}`}
+              disabled={isBillEmpty}>
+              15%
+            </button>
           </li>
           <li className="tip__item">
-            <button className="tip__btn">25%</button>
+            <button
+              className={`tip__btn ${isBillEmpty ? "disabled" : ""}`}
+              disabled={isBillEmpty}>
+              25%
+            </button>
           </li>
           <li className="tip__item">
-            <button className="tip__btn">50%</button>
+            <button
+              className={`tip__btn ${isBillEmpty ? "disabled" : ""}`}
+              disabled={isBillEmpty}>
+              50%
+            </button>
           </li>
           <li className="tip__item">
-            <button className="tip__btn">custom</button>
+            <button
+              className={`tip__btn ${isBillEmpty ? "disabled" : ""}`}
+              disabled={isBillEmpty}>
+              custom
+            </button>
           </li>
         </ul>
       </div>
 
       <div className="left__group">
-        <label htmlFor="left__text">Number of People</label>
+        <label className="left__text" htmlFor="left__text">
+          Number of People
+        </label>
         <input
           className="left__input"
-          type="text"
           type="text"
           value={inputPeople}
           onChange={handlePeopleChange}

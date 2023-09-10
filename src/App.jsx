@@ -5,7 +5,7 @@ import "./App.scss";
 
 function App() {
   return (
-    <div id="content" className="mainCont">
+    <div id="content" className="main__cont">
       <Left />
       <Right />
     </div>
