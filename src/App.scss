@@ -24,11 +24,7 @@ body {
 }
 
 /* Add media queries for responsiveness */
-<<<<<<< HEAD
 @media screen and (min-width: 700px) {
-=======
-@media screen and (min-width: 600px) {
->>>>>>> ba53136728b80820a9d11a18589afc289f57b7b2
   .main__cont {
     flex-direction: row;
   }
@@ -37,18 +33,9 @@ body {
   .right {
     width: 50%;
   }
-<<<<<<< HEAD
 }
 
 @media screen and (max-width: 700px) {
-=======
-
-  .left {
-  }
-}
-
-@media screen and (max-width: 600px) {
->>>>>>> ba53136728b80820a9d11a18589afc289f57b7b2
   .main__cont {
     flex-direction: column;
   }
@@ -58,12 +45,6 @@ body {
     gap: 10px;
     width: 100%;
   }
-<<<<<<< HEAD
-=======
-
-  .left {
-  }
->>>>>>> ba53136728b80820a9d11a18589afc289f57b7b2
 }
 
 @media screen and (max-width: 300px) {
