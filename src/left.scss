@@ -1,8 +1,10 @@
+@use "abstracts" as *;
+
 .left {
   display: flex;
   flex-direction: column;
   grid-template-columns: 1fr;
-  gap: 50px;
+  gap: 2rem;
   width: 100%;
   padding: 0;
   text-align: left;
@@ -10,23 +12,40 @@
   &__group {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 0.5rem;
+    font-weight: 700; /* Moved up */
+  }
+
+  &__text {
+    font-size: 1.5vw;
+
+    @media (min-width: 1200px) {
+      font-size: 1vw;
+    }
+
+    @media (max-width: 900px) {
+      font-size: 1.5vw;
+    }
+
+    @media (max-width: 700px) {
+      font-size: 3vw;
+    }
   }
 
   &__input {
-    font-size: 18px;
+    font-size: 4vw;
     padding: 8px;
     border-radius: 5px;
-    background-color: #dbe3ea;
+    background-color: $active-bg;
+
+    @media (min-width: 700px) {
+      font-size: 2vw;
+    }
   }
 
   &__input:focus {
     outline: none;
     box-shadow: 1px 1px 5px #bebebeb3;
-  }
-
-  &__group {
-    font-weight: 700;
   }
 }
 
@@ -38,28 +57,55 @@
   height: auto;
 
   &__btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    height: 50px;
-    padding: 10px;
-    background-color: #363337;
-    color: white;
+    height: 3em;
+    padding: 1em;
     border-radius: 5px;
+    font-size: 2vw;
+    cursor: pointer;
     transition: background-color 0.05s ease-in;
+    background-color: $dark-bg;
+    color: white;
+
+    @media (min-width: 1200px) {
+      font-size: 1vw;
+    }
+
+    @media (max-width: 300px) {
+      font-size: 2vw;
+    }
+
+    @media (max-width: 700px) {
+      font-size: 3vw;
+    }
   }
 
   &__btn:hover {
-    background-color: #4d494e;
+    background-color: $med-bg;
   }
 
-  &__item:last-child &__btn {
+  &__btn.disabled {
+    background-color: $dark-bg;
+    color: $dis-clr;
+  }
+
+  &__item:last-child &__cusbtn {
     font-weight: bold;
-    color: #363337;
-    background-color: #d0d3d6;
+    color: $dis-clr;
+    background-color: $light-bg;
     transition: background-color 0.05s ease-in;
   }
 
-  &__item:last-child &__btn:hover {
-    background-color: #dbe3ea;
-    color: rgb(87, 86, 86);
+  &__item:last-child &__cusbtn:hover {
+    background-color: $light-bg;
+    color: $dark-bg;
+  }
+
+  &__item:last-child &__cusbtn.disabled {
+    background-color: $light-bg;
+    color: $dis-clr;
   }
 }

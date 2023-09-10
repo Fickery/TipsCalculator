@@ -1,6 +1,6 @@
 import "./right.scss";
 
-export default function Right() {
+export default function Right(props) {
   return (
     <div className="right">
       <div className="right__group">
@@ -10,7 +10,7 @@ export default function Right() {
             <p className="right__textsmall">/ person</p>
           </div>
 
-          <input className="right__inbtn" type="text" placeholder="$0.00" />
+          <h3 className="right__inbtn">{props.data}</h3>
         </div>
 
         <div className="rightmain__cont">
@@ -19,7 +19,7 @@ export default function Right() {
             <p className="right__textsmall">/ person</p>
           </div>
 
-          <input className="right__inbtn" type="text" placeholder="$0.00" />
+          <h3 className="right__inbtn">$0.00</h3>
         </div>
       </div>
 
