@@ -1,72 +1,95 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { NumericFormat } from "react-number-format";
 import "./left.scss";
 
-export default function Left(props) {
-  const data = props.data;
-  const [inputValue, setInputValue] = useState("");
-  const [inputPeople, setInputPeople] = useState("");
-  const [selectedTip, setSelectedTip] = useState(0);
-
-  const handleBillChange = (event) => {
-    setInputValue(event.target.value);
-    console.log("Input value:", event.target.value);
+const tips = [5, 10, 15, 20, 25, 50];
+const TipsInput = ({ label, id, handleChange, name, placeholder }) => {
+  const handleInputChange = (values) => {
+    const { value } = values;
+    const numericValue = parseFloat(
+      value.replace(label === "Bill" ? "$" : "", "")
+    );
+    handleChange(numericValue);
   };
 
-  const handlePeopleChange = (e) => {
-    const value = e.target.value.replace(/\D/g, "");
-    setInputPeople(value <= 999 ? value : "999");
+  return (
+    <>
+      <label htmlFor={id}>{label}</label>
+      <NumericFormat
+        className="left__input"
+        type="text" // Set the type as text
+        id={id}
+        name={name || id}
+        placeholder={placeholder}
+        allowLeadingZeros={false}
+        thousandSeparator=","
+        prefix={label === "Bill" ? "$" : ""}
+        onValueChange={handleInputChange}
+      />
+    </>
+  );
+};
+
+export default function Left() {
+  const [billAmount, setBillAmount] = useState(0);
+  const [personAmount, setPersonAmount] = useState(0);
+  const [perCost, setPerCost] = useState(0);
+
+  const isBillEmpty = billAmount === "";
+
+  const calculatePerPeronAmount = (tip) => {
+    if (personAmount > 0 && billAmount !== "") {
+      setPerCost(
+        ((1 + 0.01 * tip) * parseFloat(billAmount)) / parseFloat(personAmount)
+      );
+    } else {
+      setPerCost(0);
+    }
+    console.log(typeof billAmount, typeof personAmount);
   };
 
-  const handleTipClick = (percentage) => {
-    setSelectedTip(percentage / 100);
-    console.log(percentage / 100);
-  };
+  console.log("billAmount:", billAmount);
+  console.log("personAmount:", personAmount);
+  console.log("perCost:", perCost);
 
-  const isBillEmpty = inputValue === "";
+  // const calculatePerPeronAmount = (tip) => {
+  //   if (personAmount > 0) {
+  //     // setPerCost(((tip / 100) * billAmount) / personAmount);
+  //     setPerCost(((1 + 0.01 * tip) * billAmount) / personAmount);
+  //   }
+  // };
 
   return (
     <div className="left">
       <p>
-        {props.data}, {inputValue}, {inputPeople}, {selectedTip}%
+        {billAmount}, {personAmount}, ${perCost}
       </p>
       <div className="left__group">
-        <label htmlFor="left__text">Bill</label>
-        <NumericFormat
-          className="left__input"
-          value={inputValue}
-          onChange={handleBillChange}
-          prefix={"$"}
-          allowLeadingZeros={false}
-          thousandSeparator=","
-        />
+        <TipsInput handleChange={setBillAmount} label="Bill" placeholder="$" />
       </div>
 
       <div className="left__group">
         <label htmlFor="left__text">Select Tip %</label>
-        <ul className="tip">
-          {[5, 10, 15, 25, 50].map((percentage) => (
-            <li className="tip__item" key={percentage}>
+        <div className="tip">
+          {tips.map((tip) => {
+            return (
               <button
                 className={`tip__btn ${isBillEmpty ? "disabled" : ""}`}
                 disabled={isBillEmpty}
-                onClick={() => handleTipClick(percentage)}>
-                {percentage}%
+                onClick={() => calculatePerPeronAmount(tip)}
+                key={tip}>
+                {tip}%
               </button>
-            </li>
-          ))}
-        </ul>
+            );
+          })}
+        </div>
       </div>
 
       <div className="left__group">
-        <label htmlFor="left__text">Number of People</label>
-        <NumericFormat
-          className="left__input"
-          type="text"
-          value={inputPeople}
-          onChange={handlePeopleChange}
-          allowLeadingZeros={false}
-          thousandSeparator=","
+        <TipsInput
+          handleChange={setPersonAmount}
+          label="Number of People"
+          placeholder="People"
         />
       </div>
     </div>

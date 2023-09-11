@@ -1,14 +1,13 @@
-import React, { useState } from "react";
 import Left from "./Left";
 import Right from "./Right";
 import "./App.scss";
 
 function App() {
-  const data = "Hello Everyone"; // Define the data here
+  const data = "Hello Everyone";
 
   return (
     <div id="content" className="main__cont">
-      <Left data={data} /> {/* Pass data as a prop */}
+      <Left data={data} />
       <Right data={data} />
     </div>
   );
