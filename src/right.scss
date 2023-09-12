@@ -8,7 +8,7 @@
   background-color: $dark-bg;
   color: white;
   border-radius: 15px;
-  padding: 3vh;
+  padding: 1.5rem;
   text-align: left;
 
   &__group {
@@ -17,75 +17,49 @@
     gap: 50px;
   }
 
-  &__text {
+  &__text,
+  &__label,
+  &__textsmall,
+  &__calculation {
     width: 100%;
+    font-weight: 100;
   }
 
   &__label {
-    width: 100%;
-    font-size: 3vw;
-    font-weight: 700;
-
-    @media (min-width: 700px) {
-      font-size: 1vw;
-    }
-
-    @media (max-width: 700px) {
-      font-size: 3vw;
-    }
+    font-size: 1em;
   }
 
   &__textsmall {
-    width: 100%;
-    font-weight: 100;
-    font-size: 2vw;
+    font-size: 1em;
     color: $dis-clr;
-
-    @media (min-width: 1200px) {
-      font-size: 0.8vw;
-    }
-
-    @media (max-width: 300px) {
-      font-size: 0.7vw;
-    }
-
-    @media (max-width: 700px) {
-      font-size: 3vw;
-    }
   }
 
   &__calculation {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    align-self: center;
-    direction: ltr;
-    text-align: right;
-    font-size: 3vw;
-    background: none;
+    font-size: 1.5em;
     color: $active-bg;
-
-    @media (min-width: 1200px) {
-      font-size: 2vw;
-    }
-
-    @media (max-width: 300px) {
-      font-size: 2vw;
-    }
-
-    @media (max-width: 700px) {
-      font-size: 5vw;
-    }
+    justify-content: flex-end;
+    align-self: flex-end;
+    text-align: right;
+    direction: ltr;
   }
 
   &__btn {
     height: 6vh;
-    font-size: inherit;
+    font-size: 0.8em;
     font-weight: 700;
-    background-color: $med-bg;
+    color: black;
+    background-color: $light-bg;
+    border: 0.25px solid black;
+    cursor: pointer;
     border-radius: 5px;
     text-transform: uppercase;
     box-shadow: 1px 5px 10px #222222b3;
+    transition: all 0.1s ease-in-out;
+  }
+
+  &__btn:hover {
+    color: $light-bg;
+    background-color: $med-bg;
   }
 }
 
@@ -93,6 +67,51 @@
 .rightmain__cont {
   display: flex;
   justify-content: space-between;
-  align-content: center;
-  max-width: 30em;
+  align-items: center;
+  min-width: 8em;
+}
+
+@media (min-width: 1200px) {
+  .right {
+    &__label,
+    &__calculation {
+      font-size: 1vw;
+    }
+    &__textsmall {
+      font-size: 0.8vw;
+    }
+  }
+}
+
+@media (min-width: 700px) {
+  .right {
+    &__calculation,
+    &__btn,
+    &__inbtn {
+      font-size: 1.5vw;
+    }
+    &__label,
+    &__textsmall {
+      font-size: 1vw;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .right {
+    &__calculation,
+    &__btn,
+    &__inbtn {
+      font-size: 2.5vw;
+    }
+    &__label,
+    &__textsmall {
+      font-size: 1.8vw;
+    }
+
+    &__group {
+      gap: 25px;
+      margin-bottom: 20px;
+    }
+  }
 }

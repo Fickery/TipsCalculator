@@ -3,7 +3,6 @@
 .left {
   display: flex;
   flex-direction: column;
-  grid-template-columns: 1fr;
   gap: 2rem;
   width: 100%;
   padding: 0;
@@ -18,39 +17,22 @@
 
   &__text {
     font-size: 1.5vw;
-
-    @media (min-width: 1200px) {
-      font-size: 1vw;
-    }
-
-    @media (max-width: 900px) {
-      font-size: 1.5vw;
-    }
-
-    @media (max-width: 700px) {
-      font-size: 3vw;
-    }
   }
 
   &__input {
-    font-size: 4vw;
+    font-size: 2vw;
     padding: 8px;
     border-radius: 5px;
     background-color: $active-bg;
+    border: 0.25px solid black;
 
-    @media (min-width: 700px) {
-      font-size: 2vw;
+    &:focus {
+      outline: none;
+      box-shadow: 1px 1px 5px #bebebeb3;
     }
   }
 
-  &__input:focus {
-    outline: none;
-    box-shadow: 1px 1px 5px #bebebeb3;
-  }
-
-  &__group {
-    font-weight: 700;
-  }
+  font-weight: 700;
 }
 
 .tip {
@@ -65,29 +47,16 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    color: white;
+    color: black;
+    border: 0.25px solid black;
     height: 3em;
     padding: 1em;
     border-radius: 5px;
-    font-size: 2vw;
-    cursor: pointer;
-    transition: background-color 0.05s ease-in;
-    background-color: $dark-bg;
-
-    @media (min-width: 1200px) {
-      font-size: 1vw;
-    }
-
-    @media (max-width: 300px) {
-      font-size: 2vw;
-    }
-
-    @media (max-width: 700px) {
-      font-size: 3vw;
-    }
+    font-size: 1vw;
   }
 
   &__btn:hover {
+    color: white;
     background-color: $med-bg;
   }
 
@@ -111,5 +80,46 @@
   &__item:last-child &__cusbtn.disabled {
     background-color: $light-bg;
     color: $dis-clr;
+  }
+}
+
+// Media Queries for Text Sizes
+@media (min-width: 700px) {
+  .left__text {
+    font-size: 1vw;
+  }
+
+  .left__input {
+    font-size: 1.5vw;
+  }
+
+  .tip__btn {
+    font-size: 1.1vw;
+  }
+}
+
+@media (max-width: 900px) {
+  .left__text {
+    font-size: 1.5vw;
+  }
+}
+
+@media (max-width: 700px) {
+  .left__text {
+    font-size: 2vw;
+  }
+
+  .left__input {
+    font-size: 1.5vw;
+  }
+
+  .tip__btn {
+    font-size: 2vw;
+  }
+}
+
+@media (max-width: 300px) {
+  .tip__btn {
+    font-size: 2.5vw;
   }
 }
