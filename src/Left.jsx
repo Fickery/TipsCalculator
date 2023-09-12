@@ -1,28 +1,14 @@
 import PropTypes from "prop-types";
 import { NumericFormat } from "react-number-format";
+import { debounce } from "lodash";
 import "./left.scss";
-
-Left.propTypes = {
-  billAmount: PropTypes.number,
-  setBillAmount: PropTypes.func,
-  perCost: PropTypes.number,
-  setPerCost: PropTypes.func,
-  personAmount: PropTypes.number,
-  setPersonAmount: PropTypes.func,
-  selectedTip: PropTypes.number,
-  setSelectedTip: PropTypes.func,
-};
 
 const tips = [5, 10, 15, 20, 25, 50];
 
-const TipsInput = ({ label, id, handleChange, name, placeholder }) => {
-  const handleInputChange = (values) => {
-    const { value } = values;
-    const numericValue = parseFloat(
-      value.replace(label === "Bill" ? "$" : "", "")
-    );
-    handleChange(numericValue);
-  };
+const TipsInput = ({ label, id, handleChange, name, placeholder, value }) => {
+  const debouncedHandleChange = debounce((numValue) => {
+    handleChange(numValue);
+  }, 500);
 
   return (
     <>
@@ -36,18 +22,13 @@ const TipsInput = ({ label, id, handleChange, name, placeholder }) => {
         allowLeadingZeros={false}
         thousandSeparator=","
         prefix={label === "Bill" ? "$" : ""}
-        onValueChange={handleInputChange}
+        onValueChange={(values) =>
+          debouncedHandleChange(values.floatValue || "")
+        }
+        value={value}
       />
     </>
   );
-};
-
-TipsInput.propTypes = {
-  label: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  name: PropTypes.string,
-  placeholder: PropTypes.string,
 };
 
 export default function Left({
@@ -67,11 +48,16 @@ export default function Left({
     console.log(percentage / 100);
   };
 
-  const calculatePerPeronAmount = (tip) => {
+  const calculatePerPersonAmount = (tip) => {
     if (personAmount > 0 && billAmount !== "") {
-      setPerCost(
-        ((1 + 0.01 * tip) * parseFloat(billAmount)) / parseFloat(personAmount)
-      );
+      const calculatedPerCost =
+        ((1 + 0.01 * tip) * parseFloat(billAmount)) / parseFloat(personAmount);
+
+      if (isNaN(calculatedPerCost) || !isFinite(calculatedPerCost)) {
+        setPerCost(0);
+      } else {
+        setPerCost(calculatedPerCost);
+      }
     } else {
       setPerCost(0);
     }
@@ -85,7 +71,12 @@ export default function Left({
   return (
     <div className="left">
       <div className="left__group">
-        <TipsInput handleChange={setBillAmount} label="Bill" placeholder="$" />
+        <TipsInput
+          handleChange={setBillAmount}
+          label="Bill"
+          placeholder="$"
+          value={billAmount}
+        />
       </div>
 
       <div className="left__group">
@@ -97,7 +88,7 @@ export default function Left({
                 className={`tip__btn ${isBillEmpty ? "disabled" : ""}`}
                 disabled={isBillEmpty}
                 onClick={() => {
-                  calculatePerPeronAmount(tip);
+                  calculatePerPersonAmount(tip);
                   handleTipClick(selectedTip);
                 }}
                 key={tip}>
@@ -113,8 +104,29 @@ export default function Left({
           handleChange={setPersonAmount}
           label="Number of People"
           placeholder="People"
+          value={personAmount}
         />
       </div>
     </div>
   );
 }
+
+TipsInput.propTypes = {
+  label: PropTypes.string.isRequired,
+  id: PropTypes.string,
+  handleChange: PropTypes.func.isRequired,
+  name: PropTypes.string,
+  placeholder: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+};
+
+Left.propTypes = {
+  billAmount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]), // Adjusted for flexibility
+  setBillAmount: PropTypes.func.isRequired,
+  perCost: PropTypes.oneOfType([PropTypes.string, PropTypes.number]), // Adjusted for flexibility
+  setPerCost: PropTypes.func.isRequired,
+  personAmount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]), // Adjusted for flexibility
+  setPersonAmount: PropTypes.func.isRequired,
+  selectedTip: PropTypes.oneOfType([PropTypes.string, PropTypes.number]), // Adjusted for flexibility
+  setSelectedTip: PropTypes.func.isRequired,
+};

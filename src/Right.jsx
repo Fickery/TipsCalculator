@@ -1,29 +1,19 @@
-import { useState } from "react";
-
 import PropTypes from "prop-types";
 import "./right.scss";
 
-Right.propTypes = {
-  billAmount: PropTypes.number.isRequired,
-  setBillAmount: PropTypes.func.isRequired,
-  perCost: PropTypes.number.isRequired,
-  setPerCost: PropTypes.func.isRequired,
-  personAmount: PropTypes.number.isRequired,
-  setPersonAmount: PropTypes.func.isRequired,
-  selectedTip: PropTypes.number.isRequired,
-  setSelectedTip: PropTypes.func.isRequired,
-};
+export default function Right({
+  billAmount,
+  perCost,
+  personAmount,
+  resetAllValues,
+}) {
+  const isResetDisabled = billAmount === 0 || personAmount === 0;
 
-export default function Right(props) {
-  const isResetDisabled = props.billAmount === 0 || props.personAmount === 0;
-
-  let tipAmount = props.perCost - props.billAmount / props.personAmount;
+  let tipAmount = perCost - billAmount / personAmount;
   tipAmount =
     isNaN(tipAmount) || !isFinite(tipAmount) || tipAmount < "" ? 0 : tipAmount;
 
-  // let perTotal =
-  //   props.billAmount === 0 || props.personAmount === 0 ? 0 : props.perCost;
-  let perTotal = props.billAmount / props.personAmount + tipAmount;
+  let perTotal = billAmount / personAmount + tipAmount;
   perTotal =
     isNaN(perTotal) || !isFinite(perTotal) || perTotal < "" ? 0 : perTotal;
 
@@ -49,9 +39,19 @@ export default function Right(props) {
         </div>
       </div>
 
-      <button className="right__btn" disabled={isResetDisabled}>
+      <button
+        className="right__btn"
+        onClick={resetAllValues}
+        disabled={isResetDisabled}>
         Reset
       </button>
     </div>
   );
 }
+
+Right.propTypes = {
+  billAmount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  perCost: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  personAmount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  resetAllValues: PropTypes.func.isRequired,
+};
